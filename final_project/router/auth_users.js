@@ -15,8 +15,15 @@ const authenticatedUser = (username,password)=>{ //returns boolean
 
 //only registered users can login
 regd_users.post("/login", (req,res) => {
-  //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
+  /*
+    The code must validate and sign in a customer based on the username and password created
+    in Exercise 6. It must also save the user credentials for the session as a JWT.
+    As you are required to login as a customer, while testing the output on Postman,
+    use the endpoint as "customer/login"
+  */
+  
+
+
 });
 
 // Add a book review

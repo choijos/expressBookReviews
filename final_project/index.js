@@ -10,8 +10,27 @@ app.use(express.json());
 
 app.use("/customer",session({secret:"fingerprint_customer",resave: true, saveUninitialized: true}))
 
-app.use("/customer/auth/*", function auth(req,res,next){
-//Write the authenication mechanism here
+app.use("/customer/auth/*", function auth(req, res, next){
+  //Write the authenication mechanism here
+  // Use the session authorization feature (implemented in the Practice project lab)
+  //  to authenticate a user based on the access token.
+  if (req.session.authorization) {
+    let token = req.session.authorization['accessToken'];
+    let sec = req.session.secret;
+    jwt.verify(token, sec, (err, user) => {
+      if (!err) {
+        req.user = user;
+        next();
+
+      } else {
+        return res.status(403).send("User not authenticated");
+      }
+    });
+
+  } else {
+    return res.status(403).send("User is not logged in");
+  }
+
 });
  
 const PORT =5000;
