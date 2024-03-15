@@ -80,7 +80,6 @@ public_users.get('/title/:title',function (req, res) {
 
   if (bs.length < 1) {
     return res.status(403).send(`There are no books with the title: ${title}`);
-
   }
 
   return res.status(200).send(JSON.stringify(bs));
