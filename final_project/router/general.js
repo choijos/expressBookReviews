@@ -14,14 +14,8 @@ public_users.post("/register", (req,res) => {
   //  errors like eg. when username & password are not provided.
   if (!uname) {
     message += "\nPlease provide a username.";
-  } else {
-    let us = Object.values(users);
-    for (let i = 0; i < us.length; i++) {
-      if (us[i]["username"] === uname) {
-        message += "\nThere is already a user with this username.";
-        break;
-      }
-    }
+  } else if (!isValid(uname)) {
+    message += "\nThere is already a user with this username.";
   }
 
   if (!pwd) {
