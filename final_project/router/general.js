@@ -2,6 +2,7 @@ const express = require('express');
 let books = require("./booksdb.js");
 let isValid = require("./auth_users.js").isValid;
 let users = require("./auth_users.js").users;
+const axios = require('axios').default;
 const public_users = express.Router();
 
 
@@ -38,6 +39,11 @@ public_users.post("/register", (req,res) => {
 // Get the book list available in the shop
 public_users.get('/',function (req, res) {
   return res.status(200).send(JSON.stringify(books, null, " "));
+  // axios.get('expressBookReviews/final_project/router/booksdb.js').then((resp) => {
+  //   return res.status(200).send(resp.data);
+  // }).catch((err) => {
+  //   return res.status(403).send(`There was an error: ${err}`);
+  // });
 });
 
 // Get book details based on ISBN

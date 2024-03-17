@@ -2,6 +2,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 let books = require("./booksdb.js");
 const regd_users = express.Router();
+const JWT_SECRET = require('../config.js');
 
 let users = [];
 
@@ -51,7 +52,7 @@ regd_users.post("/login", (req,res) => {
   }
 
   // create access token
-  let accessToken = jwt.sign({ data: pwd }, "access", { expiresIn: 60 * 60 });
+  let accessToken = jwt.sign({ data: pwd }, JWT_SECRET, { expiresIn: 60 * 60 });
   req.session.authorization = {accessToken, uname};
   return res.status(200).send("User has successfully logged in.");
 });

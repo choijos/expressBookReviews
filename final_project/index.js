@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const session = require('express-session')
 const customer_routes = require('./router/auth_users.js').authenticated;
 const genl_routes = require('./router/general.js').general;
+const JWT_SECRET = require('./config.js');
 
 const app = express();
 
@@ -16,8 +17,7 @@ app.use("/customer/auth/*", function auth(req, res, next){
   //  to authenticate a user based on the access token.
   if (req.session.authorization) {
     let token = req.session.authorization['accessToken'];
-    let sec = req.session.secret;
-    jwt.verify(token, sec, (err, user) => {
+    jwt.verify(token, JWT_SECRET, (err, user) => {
       if (!err) {
         req.user = user;
         next();
